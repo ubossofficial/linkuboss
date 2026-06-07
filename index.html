@@ -32,6 +32,14 @@
         /* =========================================
            THIẾT KẾ KHỐI 2 LINK VIP (YÊU CẦU MỚI)
            ========================================= */
+
+        .ticker-wrapper { background-color: #1a222e; border-radius: 30px; display: flex; align-items: center; padding: 8px 20px; margin: 20px 0; overflow: hidden; border: 1px solid rgba(0, 229, 255, 0.1); }
+        .speaker-icon { display: flex; align-items: center; margin-right: 15px; flex-shrink: 0; z-index: 2; background-color: #1a222e; padding-right: 10px; }
+        .marquee-container { flex-grow: 1; overflow: hidden; position: relative; white-space: nowrap; }
+        .marquee-text { display: inline-block; color: var(--color-accent-neon); font-size: 15px; font-weight: 500; padding-left: 100%; animation: scrollText 20s linear infinite; }
+
+
+        /*=====================================*/
         .vip-link-section {
             position: relative;
             width: 100%;
@@ -167,7 +175,9 @@
             .vip-link-section {
                 padding: 40px 15px; /* Giảm padding trên điện thoại cho gọn */
             }
-
+          .ticker-wrapper { margin: 10px 0; padding: 6px 15px; }
+            .marquee-text { font-size: 13px; }
+            
             .footer-container { grid-template-columns: 1fr; gap: 30px; }
             .footer-keywords { grid-column: 1; margin-top: 0; }
             .footer-contact-list li strong { min-width: 110px; }
@@ -200,6 +210,19 @@
     </header>
 
     <main class="main-content">
+        
+        <!-- Chữ chạy-->
+            <div class="ticker-wrapper">
+            <div class="speaker-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11 5L6 9H2V15H6L11 19V5Z" fill="var(--color-accent-neon)" stroke="var(--color-accent-neon)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M15.54 8.46C16.4774 9.39764 17.004 10.6692 17.004 11.995C17.004 13.3208 16.4774 14.5924 15.54 15.53M19.07 4.93C20.9447 6.80527 21.9979 9.34835 21.9979 12C21.9979 14.6516 20.9447 17.1947 19.07 19.07" stroke="var(--color-accent-neon)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <div class="marquee-container">
+                <span class="marquee-text">Khuyến mãi UBOSS nạp đầu nhận thưởng lên tới 8888 USDT. Đường link chính thức của UBOSS là UBOSS89.COM, truy cập đúng đường link tránh giả mạo, lừa đảo.</span>
+            </div>
+        </div> 
         
        <h1 style="color: var(--color-accent-neon); text-align: center; margin-bottom: 10px; font-size: 28px; text-transform: uppercase;">LINK TRUY CẬP CHÍNH THỨC</h1>
         
