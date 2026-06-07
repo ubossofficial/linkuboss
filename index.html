@@ -35,7 +35,7 @@
         .vip-link-section {
             position: relative;
             width: 100%;
-            padding: 60px 20px;
+            padding: 20px;
             border-radius: 20px;
             overflow: hidden; /* Đảm bảo nền mờ không bị tràn ra ngoài góc bo tròn */
             margin-bottom: 40px;
@@ -48,7 +48,7 @@
             position: absolute;
             top: -20px; left: -20px; right: -20px; bottom: -20px; /* Tràn ra tí để khi blur không bị viền trắng */
             /* ĐỔI LINK ẢNH NỀN CỦA BẠN Ở ĐÂY */
-            background-image: url('https://via.placeholder.com/1920x1080/0b131e/00E5FF?text=Anh+Nen+Background');
+            background-image: url('bg.jpg');
             background-size: cover;
             background-position: center;
             opacity: 0.3; /* Độ mờ của ảnh nền (từ 0.1 đến 1) */
@@ -59,11 +59,13 @@
         /* Vùng chứa 2 ảnh (nằm đè lên trên ảnh nền) */
         .vip-link-container {
             position: relative;
-            z-index: 2; /* Nổi lên trên background */
+            z-index: 2; 
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 40px; /* Khoảng cách giữa 2 hình */
+            gap: 30px; /* Giảm gap một chút cho gọn */
+            max-width: 850px; /* THÊM DÒNG NÀY: Ép tổng độ rộng 2 ảnh nhỏ lại */
+            margin: 0 auto;   /* THÊM DÒNG NÀY: Để 2 ảnh luôn nằm giữa màn hình */
         }
 
         /* Hiệu ứng của từng bức ảnh Link */
@@ -199,7 +201,7 @@
 
     <main class="main-content">
         
-        <h1 style="color: var(--color-accent-neon); text-align: center; margin-bottom: 30px; font-size: 28px; text-transform: uppercase;">LINK TRUY CẬP CHÍNH THỨC</h1>
+       <h1 style="color: var(--color-accent-neon); text-align: center; margin-bottom: 10px; font-size: 28px; text-transform: uppercase;">LINK TRUY CẬP CHÍNH THỨC</h1>
         
         <!-- BẮT ĐẦU KHỐI SECTION LỚN THEO YÊU CẦU -->
         <section class="vip-link-section">
