@@ -277,49 +277,16 @@
            ========================================= */
         .site-header { background-color: rgba(11, 19, 30, 0.95); border-bottom: 1px solid rgba(0, 229, 255, 0.1); position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; backdrop-filter: blur(10px); }
         .header-container { max-width: 1400px; margin: 0 auto; padding: 15px 20px; display: flex; align-items: center; justify-content: space-between; }
-.header-left {
-    display: flex;
-    align-items: center;
-    flex: 1;          /* chiếm toàn bộ khoảng trống bên trái */
-}
+.header-left { display: flex; align-items: center; gap: 40px; }
 
-.logo {
-    flex-shrink: 0;
-    margin-right: 50px;
-}
+.logo { display: flex; align-items: center; text-decoration: none; } .logo img {
 
-.logo img {
-    height: 90px;     /* logo to hơn */
-    width: auto;
-    object-fit: contain;
-}
-             .logo img:hover {
-            transform: scale(1.05); /* Hiệu ứng phóng to nhẹ khi di chuột vào */
-            filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.5)); /* Hiệu ứng tỏa sáng nhẹ */
-        }
-.main-nav {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-}
-
-.main-nav ul {
-    display: flex;
-    align-items: center;
-    list-style: none;
-    gap: 35px;
-}
-
-.main-nav a {
-    font-size: 15px;
-    font-weight: 700;
-    white-space: nowrap;
-}
-.header-actions {
-    display: flex;
-    gap: 12px;
-    flex-shrink: 0;
-}
+.logo img { height: 45px; /* Chiều cao tối đa của logo, bạn có thể tăng giảm tùy ý */ width: auto; object-fit: contain; transition: transform 0.3s ease; }
+.logo img:hover { transform: scale(1.05); /* Hiệu ứng phóng to nhẹ khi di chuột vào */ filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.5)); /* Hiệu ứng tỏa sáng nhẹ */ }
+.main-nav ul { display: flex; list-style: none; gap: 25px; }
+.main-nav a { color: var(--color-text-desc); text-decoration: none; font-size: 14px; font-weight: 600; text-transform: uppercase; transition: color 0.3s ease; }
+.main-nav a:hover { color: var(--color-accent-neon); } 
+    .header-actions { display: flex; gap: 15px; }
 
         .btn-neon { position: relative; width: 180px; height: 45px; display: inline-flex; align-items: center; justify-content: center; background: transparent; text-decoration: none; font-size: 13px; font-weight: 800; text-transform: uppercase; border-radius: 6px; overflow: hidden; cursor: pointer; transition: box-shadow 0.3s ease; }
         .btn-neon::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: conic-gradient(transparent, transparent, rgba(255, 255, 255, 1), #00FFFF, transparent); animation: rotateBorder 3s linear infinite; z-index: 0; }
