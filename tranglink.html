@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>UBOSS - Link Đăng Nhập Chính Thức</title> <!-- Đổi tiêu đề -->
+    <link rel="icon" href="favicon.png" type="image/png">
+    
+    <style>
+        /* =========================================
+           HỆ MÀU SẮC & CẤU TRÚC CƠ BẢN
+           ========================================= */
+        :root {
+            --color-bg-main: #0B131E;       
+            --color-bg-card: #121A25;       
+            --color-accent-neon: #00E5FF;   
+            --color-text-white: #FFFFFF;    
+            --color-text-desc: #8B9BB4;     
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+        body { background-color: var(--color-bg-main); color: var(--color-text-white); padding-top: 80px; overflow-x: hidden; }
+
+        /* KHUNG CHỨA NỘI DUNG CHÍNH Ở GIỮA */
+        .main-content { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 40px 15px 50px 15px; 
+            min-height: 60vh; 
+        }
+
+        /* =========================================
+           THIẾT KẾ KHỐI 2 LINK VIP (YÊU CẦU MỚI)
+           ========================================= */
+        .vip-link-section {
+            position: relative;
+            width: 100%;
+            padding: 60px 20px;
+            border-radius: 20px;
+            overflow: hidden; /* Đảm bảo nền mờ không bị tràn ra ngoài góc bo tròn */
+            margin-bottom: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6); /* Đổ bóng cho khối lớn */
+            border: 1px solid rgba(0, 229, 255, 0.1);
+        }
+
+        /* Lớp ảnh nền xử lý Mờ (Blur) và Độ nhạt (Opacity) */
+        .vip-link-bg {
+            position: absolute;
+            top: -20px; left: -20px; right: -20px; bottom: -20px; /* Tràn ra tí để khi blur không bị viền trắng */
+            /* ĐỔI LINK ẢNH NỀN CỦA BẠN Ở ĐÂY */
+            background-image: url('https://via.placeholder.com/1920x1080/0b131e/00E5FF?text=Anh+Nen+Background');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.3; /* Độ mờ của ảnh nền (từ 0.1 đến 1) */
+            filter: blur(8px); /* Độ nhòe của ảnh nền */
+            z-index: 1;
+        }
+
+        /* Vùng chứa 2 ảnh (nằm đè lên trên ảnh nền) */
+        .vip-link-container {
+            position: relative;
+            z-index: 2; /* Nổi lên trên background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px; /* Khoảng cách giữa 2 hình */
+        }
+
+        /* Hiệu ứng của từng bức ảnh Link */
+        .link-card {
+            flex: 1;
+            display: block;
+            text-decoration: none;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Hiệu ứng zoom nảy nhẹ mượt mà */
+            cursor: pointer;
+        }
+
+        .link-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+            /* Đổ bóng cho ảnh để tách biệt khỏi nền */
+            filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.5));
+            transition: filter 0.3s ease;
+        }
+
+        /* Hiệu ứng khi di chuột vào (Hover) */
+        .link-card:hover {
+            transform: scale(1.05) translateY(-10px); /* Phóng to 5% và nổi lên trên 10px */
+        }
+        
+        .link-card:hover img {
+            filter: drop-shadow(0 20px 35px rgba(0, 229, 255, 0.4)); /* Tỏa sáng màu xanh neon khi hover */
+        }
+
+        /* =========================================
+           HEADER (ĐẦU TRANG)
+           ========================================= */
+        .site-header { background-color: rgba(11, 19, 30, 0.95); border-bottom: 1px solid rgba(0, 229, 255, 0.1); position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; backdrop-filter: blur(10px); }
+        .header-container { max-width: 1400px; margin: 0 auto; padding: 15px 20px; display: flex; align-items: center; justify-content: space-between; }
+        .header-left { display: flex; align-items: center; gap: 40px; }
+        .logo { display: flex; align-items: center; text-decoration: none; }
+        .logo img { height: 45px; width: auto; object-fit: contain; transition: transform 0.3s ease; }
+        .logo img:hover { transform: scale(1.05); filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.5)); }
+        .main-nav ul { display: flex; list-style: none; gap: 25px; }
+        .main-nav a { color: var(--color-text-desc); text-decoration: none; font-size: 14px; font-weight: 600; text-transform: uppercase; transition: color 0.3s ease; }
+        .main-nav a:hover { color: var(--color-accent-neon); }
+        .header-actions { display: flex; gap: 15px; }
+
+        .btn-neon { position: relative; width: 180px; height: 45px; display: inline-flex; align-items: center; justify-content: center; background: transparent; text-decoration: none; font-size: 13px; font-weight: 800; text-transform: uppercase; border-radius: 6px; overflow: hidden; cursor: pointer; transition: box-shadow 0.3s ease; }
+        .btn-neon::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: conic-gradient(transparent, transparent, rgba(255, 255, 255, 1), #00FFFF, transparent); animation: rotateBorder 3s linear infinite; z-index: 0; }
+        .btn-neon::after { content: ''; position: absolute; inset: 1.5px; background: var(--color-bg-main); border-radius: 5px; z-index: 1; }
+        .btn-neon span { position: relative; z-index: 2; display: flex; align-items: center; justify-content: center; width: calc(100% - 12px); height: calc(100% - 12px); background: linear-gradient(to bottom, #35bdbb, #54fefe); border-radius: 4px; color: #0b131e; letter-spacing: 0.5px; font-size: inherit; transition: background 0.3s ease; }
+        .btn-neon:hover { box-shadow: 0 0 20px rgba(84, 254, 254, 0.6); }
+        .btn-neon:hover span { background: linear-gradient(to bottom, #41d2d0, #73ffff); }
+        @keyframes rotateBorder { 100% { transform: rotate(360deg); } }
+
+        .menu-toggle { display: none; flex-direction: column; justify-content: space-between; width: 24px; height: 18px; background: transparent; border: none; cursor: pointer; z-index: 1100; }
+        .menu-toggle span { width: 100%; height: 2px; background-color: var(--color-accent-neon); transition: all 0.3s ease; }
+
+        /* =========================================
+           FOOTER (CHÂN TRANG)
+           ========================================= */
+        .site-footer { background-color: #070B12; border-top: 1px solid rgba(0, 229, 255, 0.15); padding: 60px 0 30px 0; color: var(--color-text-desc); font-size: 14px; }
+        .footer-container { max-width: 1200px; margin: 0 auto; padding: 0 15px; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; }
+        .footer-col h3 { color: var(--color-accent-neon); font-size: 18px; font-weight: 700; margin-bottom: 25px; text-transform: uppercase; }
+        .footer-intro p { line-height: 1.7; margin-bottom: 20px; }
+        .footer-intro strong { color: var(--color-text-white); }
+        .footer-contact-list { list-style: none; }
+        .footer-contact-list li { margin-bottom: 12px; display: flex; align-items: flex-start; gap: 8px; line-height: 1.5; }
+        .footer-contact-list li strong { color: var(--color-text-white); min-width: 130px; display: inline-block; }
+        .footer-menu { list-style: none; }
+        .footer-menu li { margin-bottom: 15px; }
+        .footer-menu a { color: var(--color-text-desc); text-decoration: none; transition: color 0.3s ease; display: flex; align-items: center; }
+        .footer-menu a::before { content: "•"; color: var(--color-accent-neon); margin-right: 8px; font-size: 18px; }
+        .footer-menu a:hover { color: var(--color-accent-neon); }
+        .footer-keywords { grid-column: 2 / span 2; margin-top: 10px; font-size: 13px; line-height: 1.7; color: #5a6a82; border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 20px; }
+        .footer-logos { max-width: 1200px; margin: 40px auto 0 auto; padding: 20px 15px 0 15px; border-top: 1px solid rgba(255, 255, 255, 0.05); display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; align-items: center; }
+        .footer-logos img { height: 40px; object-fit: contain; opacity: 0.7; transition: opacity 0.3s ease; }
+        .footer-logos img:hover { opacity: 1; }
+
+        /* =========================================
+           RESPONSIVE MOBILE CHO HEADER, FOOTER & KHỐI LINK
+           ========================================= */
+        @media (max-width: 992px) {
+            .header-container { display: grid; grid-template-columns: 1fr; gap: 15px; padding: 12px 15px; }
+            .header-left { width: 100%; justify-content: center; position: relative; grid-row: 1; }
+            .menu-toggle { display: flex; position: absolute; left: 0; top: 50%; transform: translateY(-50%); }
+            .main-nav { position: fixed; top: 0; left: -100%; width: 280px; height: 100vh; background-color: var(--color-bg-card); border-right: 1px solid rgba(0, 229, 255, 0.2); padding: 80px 30px; transition: left 0.4s cubic-bezier(0.1, 0.9, 0.2, 1); z-index: 1050; }
+            .main-nav.active { left: 0; }
+            .main-nav ul { flex-direction: column; gap: 30px; }
+            .main-nav a { font-size: 16px; display: block; }
+            .header-actions { grid-row: 2; width: 100%; display: flex; justify-content: space-between; gap: 10px; }
+            .btn-neon { flex: 1; width: auto; height: 40px; font-size: 11px; }
+            .menu-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+            .menu-toggle.open span:nth-child(2) { opacity: 0; }
+            .menu-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(6px, -7px); }
+            body { padding-top: 105px; } 
+            
+            /* Responsive cho khối 2 Ảnh Link trên Điện Thoại */
+            .vip-link-container {
+                flex-direction: column; /* Chuyển thành xếp dọc 1 hàng */
+                gap: 30px; /* Khoảng cách giữa 2 hình xếp dọc */
+            }
+            .vip-link-section {
+                padding: 40px 15px; /* Giảm padding trên điện thoại cho gọn */
+            }
+
+            .footer-container { grid-template-columns: 1fr; gap: 30px; }
+            .footer-keywords { grid-column: 1; margin-top: 0; }
+            .footer-contact-list li strong { min-width: 110px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="header-container">
+            <div class="header-left">
+                <button class="menu-toggle" id="mobile-menu-btn"><span></span><span></span><span></span></button>
+                <a href="index.html" class="logo">
+                    <img src="logo.png" alt="UBOSS Logo"> 
+                </a>
+                <nav class="main-nav" id="sidebar-menu">
+                    <ul>
+                        <li><a href="https://uboss.ink/ve-chung-toi/">About Us</a></li>
+                        <li><a href="https://uboss.ink/giay-phep-hoat-dong/">Giấy Phép Hoạt Động</a></li>
+                        <li><a href="https://uboss.ink/chinh-sach-bao-mat-uboss/">Chính Sách Bảo Mật</a></li>
+                        <li><a href="#">Tin Tức</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="header-actions">
+                <a href="uboss227.com" class="btn-neon"><span>Đăng Ký +KM 100%</span></a>
+                <a href="uboss227.com" class="btn-neon"><span>Đăng nhập</span></a>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        
+        <h1 style="color: var(--color-accent-neon); text-align: center; margin-bottom: 30px; font-size: 28px; text-transform: uppercase;">LINK TRUY CẬP CHÍNH THỨC</h1>
+        
+        <!-- BẮT ĐẦU KHỐI SECTION LỚN THEO YÊU CẦU -->
+        <section class="vip-link-section">
+            
+            <!-- Lớp mờ background -->
+            <div class="vip-link-bg"></div>
+
+            <!-- Nội dung 2 ảnh -->
+            <div class="vip-link-container">
+                
+                <!-- Bức Ảnh / Cổng Số 1 -->
+                <a href="LINK_DANG_NHAP_1_CUA_BAN" target="_blank" class="link-card">
+                    <!-- ĐỔI ẢNH PHIÊN BẢN 1 CỦA BẠN TẠI ĐÂY -->
+                    <img src="https://via.placeholder.com/600x450/1e293b/00E5FF?text=Anh+Phien+Ban+1" alt="Truy cập Phiên Bản 1">
+                </a>
+
+                <!-- Bức Ảnh / Cổng Số 2 -->
+                <a href="LINK_DANG_NHAP_2_CUA_BAN" target="_blank" class="link-card">
+                    <!-- ĐỔI ẢNH PHIÊN BẢN 2 CỦA BẠN TẠI ĐÂY -->
+                    <img src="https://via.placeholder.com/600x450/1e293b/00E5FF?text=Anh+Phien+Ban+2" alt="Truy cập Phiên Bản 2">
+                </a>
+
+            </div>
+
+        </section>
+        <!-- KẾT THÚC KHỐI SECTION -->
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-col footer-intro">
+                <p><strong>UBOSS227.COM</strong> là nơi cá cược trực tuyến độc quyền được cấp phép hợp pháp do trung tâm an ninh mạng quốc gia <strong>National Cyber Security Centre</strong> và Isle of Man, Cagayan, và Pagcor cấp phép. Những giấy phép khẳng định sân chơi này an toàn và minh bạch thu hút hơn 10 triệu khách hàng.</p>
+                <ul class="footer-contact-list">
+                    <li><strong>Trụ sở:</strong> <span>508 Đ. Lê Trọng Tấn, Tây Thạnh, Tân Phú, Hồ Chí Minh, Việt Nam</span></li>
+                    <li><strong>Số điện thoại:</strong> <span>0905753246</span></li>
+                    <li><strong>Giấy phép quốc tế:</strong> <span>Giấy phép tập đoàn giải trí Pagcor (Philippines)</span></li>
+                    <li><strong>Giấy chứng nhận:</strong> <span>067829371929 Cấp ngày 30/11/2024</span></li>
+                    <li><strong>Sitemap:</strong> <a href="#" style="color: var(--color-accent-neon); text-decoration: none;">Xem Sitemap</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>VỀ CHÚNG TÔI</h3>
+                <ul class="footer-menu">
+                    <li><a href="https://uboss.ink/ve-chung-toi/">Giới thiệu</a></li>
+                    <li><a href="https://uboss.ink/chinh-sach-bao-mat-uboss/">Điều khoản điều kiện</a></li>
+                    <li><a href="https://uboss.ink/giay-phep-hoat-dong/">Giấy phép hoạt động</a></li>
+                    <li><a href="https://uboss.ink/chinh-sach-bao-mat-uboss/">Chính sách bảo mật</a></li>
+                    <li><a href="https://uboss.ink/ceo-uboss-official/">Đại sứ thương hiệu UBOSS</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>HƯỚNG DẪN THAM GIA</h3>
+                <ul class="footer-menu">
+                    <li><a href="https://uboss.ink/category/huong-dan-uboss/">Hướng dẫn đăng ký</a></li>
+                    <li><a href="https://uboss.ink/category/huong-dan-uboss/">Hướng dẫn đăng nhập</a></li>
+                    <li><a href="https://uboss.ink/category/huong-dan-uboss/">Hướng dẫn nạp tiền</a></li>
+                    <li><a href="https://uboss.ink/category/huong-dan-uboss/">Hướng dẫn rút tiền</a></li>
+                    <li><a href="https://uboss.ink/category/huong-dan-uboss/">Hướng dẫn tải app</a></li>
+                </ul>
+            </div>
+            <div class="footer-keywords">
+                Từ khóa tìm kiếm nhanh của UBOSS: uboss - uboss89 - uboss227 - uboss68 - uboss đăng nhập - nhà cái uboss - uboss casino - link vào uboss - tải app uboss - game uboss - uboss club - tại uboss - uboss vip - uboss com - uboss viet nam...
+            </div>
+        </div>
+        <div class="footer-logos">
+            <img src="iovation.png" alt="NCSC">
+            <img src="icon1.webp" alt="Pagcor">
+            <img src="godaddy.png" alt="Bộ Công Thương">
+            <img src="gamcare.png" alt="GamCare">
+            <img src="gaming-license1.png" alt="BeGambleAware">
+            <img src="gamcare.png" alt="BMM">
+        </div>
+    </footer>
+
+    <script>
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const sidebar = document.getElementById('sidebar-menu');
+        if(menuBtn && sidebar) {
+            menuBtn.addEventListener('click', () => { 
+                menuBtn.classList.toggle('open'); 
+                sidebar.classList.toggle('active'); 
+            });
+            document.addEventListener('click', (e) => { 
+                if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) { 
+                    menuBtn.classList.remove('open'); 
+                    sidebar.classList.remove('active'); 
+                } 
+            });
+        }
+    </script>
+</body>
+</html>
