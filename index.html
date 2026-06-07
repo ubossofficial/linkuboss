@@ -101,35 +101,6 @@
         .social-btn.instagram { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
         .social-btn.pinterest { background-color: #bd081c; }
 
-        /* ==========================================
-           TỐI ƯU RIÊNG CHO ĐIỆN THOẠI
-           ========================================== */
-        @media (max-width: 768px) {
-            .footer-grid-layout {
-                grid-template-columns: 1fr;
-                gap: 35px; 
-            }
-
-            .footer-col {
-                padding-bottom: 10px;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.05); 
-            }
-            .footer-col:last-child {
-                border-bottom: none; 
-            }
-
-            .my-social-float { 
-                bottom: 25px !important; 
-                right: 15px !important; 
-                gap: 12px !important;
-            }
-            
-            .social-icon { 
-                width: 52px !important; 
-                height: 52px !important; 
-                font-size: 26px !important; 
-            }
-        }
         /* =========================================
            THIẾT KẾ KHỐI 2 LINK VIP (YÊU CẦU MỚI)
            ========================================= */
@@ -372,6 +343,18 @@
             .menu-toggle.open span:nth-child(2) { opacity: 0; }
             .menu-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(6px, -7px); }
             body { padding-top: 105px; }
+
+                       .my-social-float { 
+                bottom: 25px !important; 
+                right: 15px !important; 
+                gap: 12px !important;
+            }
+            
+            .social-icon { 
+                width: 52px !important; 
+                height: 52px !important; 
+                font-size: 26px !important; 
+            }
             
              /* Chia 2 cột đều nhau trên Mobile */
             .grid-5-items { grid-template-columns: repeat(2, 1fr); gap: 12px; }
@@ -400,9 +383,7 @@
             .footer-container { grid-template-columns: 1fr; gap: 30px; }
             .footer-keywords { grid-column: 1; margin-top: 0; }
             .footer-contact-list li strong { min-width: 110px; }
-        }
-            
-            /* Responsive cho khối 2 Ảnh Link trên Điện Thoại */
+                        /* Responsive cho khối 2 Ảnh Link trên Điện Thoại */
             .vip-link-container {
                 flex-direction: column; /* Chuyển thành xếp dọc 1 hàng */
                 gap: 30px; /* Khoảng cách giữa 2 hình xếp dọc */
@@ -417,6 +398,7 @@
             .footer-keywords { grid-column: 1; margin-top: 0; }
             .footer-contact-list li strong { min-width: 110px; }
         }
+            
     </style>
 </head>
 <body>
