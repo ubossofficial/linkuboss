@@ -377,13 +377,23 @@
             .footer-keywords { grid-column: 1; margin-top: 0; }
             .footer-contact-list li strong { min-width: 110px; }
                         /* Responsive cho khối 2 Ảnh Link trên Điện Thoại */
-            .vip-link-container {
-                flex-direction: column; /* Chuyển thành xếp dọc 1 hàng */
-                gap: 30px; /* Khoảng cách giữa 2 hình xếp dọc */
-            }
-            .vip-link-section {
-                padding: 40px 15px; /* Giảm padding trên điện thoại cho gọn */
-            }
+            .link-card {
+    width: 90%;          /* Chỉnh từ 100% (hoặc giá trị cũ) thành 90% hoặc 95% để ảnh to ra */
+    max-width: 600px;    /* Tăng con số này lên để ảnh to hơn trên màn hình lớn */
+    margin: 0 auto;      /* Đảm bảo ảnh luôn nằm giữa */
+    display: block;
+}
+.vip-link-container {
+    width: 100%;         /* Đảm bảo khung chứa chiếm hết chiều ngang màn hình */
+    padding: 0 10px;     /* Giảm padding trái/phải để ảnh sát mép hơn */
+    display: flex;
+    flex-direction: column; 
+    align-items: center;  /* Căn giữa ảnh */
+    gap: 20px;
+}
+.vip-link-section {
+    padding: 20px 0;     /* Chỉnh số 0 ở cuối để ảnh bung sát mép trái/phải màn hình */
+}
           .ticker-wrapper { margin: 10px 0; padding: 6px 15px; }
             .marquee-text { font-size: 13px; }
             
